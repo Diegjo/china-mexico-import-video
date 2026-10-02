@@ -1,0 +1,34 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "description": "Motion graphics: importación China→México (~60s)",
+  "main": "index.js",
+  "scripts": {
+    "check": "node tools/check_rules.mjs && node --test lib/motion.test.js film/draw.test.js",
+    "test": "node --test lib/motion.test.js film/draw.test.js",
+    "preview": "node tools/serve.mjs 5173",
+    "stills": "node tools/stills.mjs",
+    "cues": "node tools/cues.mjs",
+    "render": "node tools/render.mjs",
+    "render:draft": "node tools/render.mjs --fps 30 --sub 4 --out out/draft.mp4",
+    "audio": "python3 audio/score.py out/cues.json out/score.wav",
+    "mux": "node tools/mux.mjs",
+    "sheets": "bash tools/sheets.sh && node tools/poster.mjs",
+    "build": "npm run check && npm run render && npm run audio && npm run mux && npm run sheets"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Diegjo/china-mexico-import-video.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Diegjo/china-mexico-import-video/issues"
+  },
+  "homepage": "https://github.com/Diegjo/china-mexico-import-video#readme",
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  },
+  "type": "module"
+}
