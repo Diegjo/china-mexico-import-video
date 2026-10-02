@@ -5,8 +5,13 @@ import { slot, label, kicker, caption, check, rr, fit, polyline } from '../draw.
 import { irisAt } from './s4_flete.js';
 
 const T_OPEN = 1.0, T_DOC = 4.0, T_TREE = 8.0, OUT = 11.6;
-const REQS = ['RFC + e.firma', 'Padrón de Importadores', 'Agente aduanal'];
-const REQ_T = (i) => 1.7 + i * 0.5;
+const REQS = [
+  ['RFC + e.firma', 'ALTA ANTE EL SAT'],
+  ['Padrón de Importadores', 'INSCRIPCIÓN ANTE EL SAT'],
+  ['Agente aduanal', 'TE REPRESENTA EN LA ADUANA'],
+];
+const REQ_T = (i) => 1.6 + i * 0.45;
+const REQ_Y = (i) => 780 + i * 190;
 const DOC = { x: M, y: 560, w: 888, h: 850 };
 const PED = [
   ['FRACCIÓN ARANCELARIA', '8 dígitos + NICO'],
@@ -80,8 +85,8 @@ export default {
     // Requirements checklist.
     const reqOut = T_DOC - 0.3;
     caption(g, 'Antes de importar:', M, 620, lt - 1.5, { out: reqOut - 1.5 });
-    REQS.forEach((r, i) => {
-      const y = 750 + i * 118, t0 = REQ_T(i);
+    REQS.forEach(([r, sub], i) => {
+      const y = REQ_Y(i), t0 = REQ_T(i);
       const p = spring(lt - t0, 'pop') * (1 - spring(lt - reqOut - i * 0.04, 'whip'));
       if (p > 0.001) {
         g.save();
@@ -93,7 +98,9 @@ export default {
         g.restore();
         check(g, M + 14, y - 26, 38, clamp(spring(lt - t0 - 0.12, 'snappy')) * clamp(p), C.paper, 8);
       }
-      slot(g, r, M + 100, y, lt - t0 + 0.05, { fam: F.bold, size: 62, by: 'word', step: 0.04, preset: 'soft', out: reqOut - t0 + 0.05 + i * 0.04 });
+      const out = reqOut - t0 + 0.05 + i * 0.04;
+      slot(g, r, M + 100, y, lt - t0 + 0.05, { fam: F.bold, size: 68, by: 'word', step: 0.04, preset: 'soft', out });
+      label(g, sub, M + 102, y + 58, lt - t0 - 0.15, { size: 34, color: C.muted, out: out - 0.2 });
     });
 
     // Pedimento sheet.

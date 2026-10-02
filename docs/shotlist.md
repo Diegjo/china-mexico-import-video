@@ -74,7 +74,7 @@ Worked example (illustrative, USD), reused in the hook, proforma and cost stack:
 |---|---|---|---|
 | 34.00 | Full ink, bone `ADUANA` slots in | `ADUANA` | thump |
 | 35.00 | Ink panel retracts down; type inverts ink/bone where the edge passes | `04 · ADUANA MX` | whoosh |
-| 35.50 | Requirement chips with drawn checks, one per beat | `Antes de importar:` · `RFC + e.firma` · `Padrón de Importadores` · `Agente aduanal` | pop ×3 |
+| 35.60 | Requirement rows with drawn checks, one per beat, each with a mono sub-label | `Antes de importar:` · `RFC + e.firma` (alta ante el SAT) · `Padrón de Importadores` (inscripción ante el SAT) · `Agente aduanal` (te representa en la aduana) | pop ×3 |
 | 38.00 | Pedimento sheet slides up; rows per beat | `FRACCIÓN 8 dígitos + NICO` · `VALOR EN ADUANA mercancía + flete + seguro` · `IGI según fracción` · `DTA ~0.8%` · `IVA 16%` | tick per row |
 | 39.00 | Caption | `Tu agente aduanal presenta el pedimento.` | — |
 | 42.00 | Tree: one node branches into three (lines draw) | `LA FRACCIÓN ARANCELARIA DEFINE:` · `Arancel (IGI)` · `NOM / etiquetado` · `Permisos` | pops |
