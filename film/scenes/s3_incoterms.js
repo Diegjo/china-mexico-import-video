@@ -3,7 +3,8 @@ import { spring, track, indicator, clamp } from '../../lib/motion.js';
 import { W, H, C, F, M } from '../theme.js';
 import { slot, label, kicker, caption, chip, rr, fit } from '../draw.js';
 
-const T_OPEN = 1.0, T_FOB = 2.0, T_DDP = 6.0, OUT = 9.6;
+const T_OPEN = 1.5, T_FOB = 2.5, T_DDP = 6.0, T_OJO = 7.9, OUT = 9.6;
+const D = T_OPEN - 0.15; // the diagram starts building just before the panel retracts
 const SEG = ['EXW', 'FOB', 'CIF', 'DDP'];
 const TOG = { x: M, y: 352, w: 888, h: 96 };
 const segX = (i) => TOG.x + (i * TOG.w) / 4;
@@ -24,9 +25,9 @@ export default {
   post: 0.6,
   cues: [
     [0, 'thump'], [T_OPEN, 'whoosh', 0.7],
-    ...NODES.map((_, i) => [1.05 + i * 0.1, 'tick', 0.4]),
+    ...NODES.map((_, i) => [D + 0.2 + i * 0.1, 'tick', 0.4]),
     [T_FOB, 'click'], [T_FOB + 0.05, 'pop', 0.5], [T_DDP, 'click'], [T_DDP + 0.05, 'whoosh', 0.5],
-    [8.4, 'pop', 0.8], [OUT, 'whoosh'],
+    [T_OJO, 'pop', 0.8], [OUT, 'whoosh'],
   ],
   draw(g, lt) {
     g.translate(-W * spring(lt - OUT, 'whip'), 0);
@@ -54,10 +55,10 @@ export default {
 
 // Route diagram: drawn first so the accent panel can retract over it.
 function diagram(g, lt) {
-  kicker(g, '02', 'INCOTERMS', M, 290, lt - 0.85);
+  kicker(g, '02', 'INCOTERMS', M, 290, lt - D);
 
   // Segmented toggle with a stretching indicator.
-  const tw = spring(lt - 0.9, 'soft');
+  const tw = spring(lt - D - 0.05, 'soft');
   rr(g, TOG.x, TOG.y, TOG.w * tw, TOG.h, TOG.h / 2);
   g.fillStyle = C.rule;
   g.fill();
@@ -73,7 +74,7 @@ function diagram(g, lt) {
     g.fill();
   }
   const segLabels = (color) => SEG.forEach((s, i) =>
-    label(g, s, segX(i) + TOG.w / 8, TOG.y + 63, lt - 1.05 - i * 0.05, { fam: F.monoB, size: 40, align: 'center', color }));
+    label(g, s, segX(i) + TOG.w / 8, TOG.y + 63, lt - D - 0.2 - i * 0.05, { fam: F.monoB, size: 40, align: 'center', color }));
   segLabels(C.ink);
   if (pill) {
     g.save();
@@ -84,7 +85,7 @@ function diagram(g, lt) {
   }
 
   // Route: base line, then who pays each leg.
-  const base = spring(lt - 1.0, 'soft');
+  const base = spring(lt - D - 0.15, 'soft');
   g.fillStyle = C.rule;
   g.fillRect(RX - 3, NODE_Y(0), 6, (NODE_Y(4) - NODE_Y(0)) * base);
   const h = track(lt, [[0, 0], [T_FOB, 1], [T_DDP, 4]]);
@@ -97,7 +98,7 @@ function diagram(g, lt) {
     g.fillRect(RX - 8, yh, 16, (NODE_Y(4) - yh) * show);
   }
   NODES.forEach(([name, sub], i) => {
-    const y = NODE_Y(i), p = spring(lt - 1.05 - i * 0.1, 'pop');
+    const y = NODE_Y(i), p = spring(lt - D - 0.2 - i * 0.1, 'pop');
     if (p > 0) {
       const fill = show < 0.5 ? C.bg : i <= h + 0.02 ? C.ink : C.accent;
       g.beginPath();
@@ -108,8 +109,8 @@ function diagram(g, lt) {
       g.strokeStyle = fill === C.accent ? C.accent : C.ink;
       g.stroke();
     }
-    slot(g, name, 250, y + 14, lt - 1.1 - i * 0.1, { fam: F.med, size: 52, by: 'word', step: 0.04, preset: 'soft' });
-    label(g, sub, 252, y + 62, lt - 1.2 - i * 0.1, { size: 34, color: C.muted });
+    slot(g, name, 250, y + 14, lt - D - 0.25 - i * 0.1, { fam: F.med, size: 52, by: 'word', step: 0.04, preset: 'soft' });
+    label(g, sub, 252, y + 62, lt - D - 0.35 - i * 0.1, { size: 34, color: C.muted });
   });
 
   // Legend.
@@ -124,9 +125,9 @@ function diagram(g, lt) {
   label(g, 'TÚ', M + 390, 1340, lt - T_FOB - 0.3, { size: 36 });
 
   // Captions: FOB pair, then DDP pair + the warning.
-  caption(g, 'FOB: el proveedor entrega a bordo.', M, 1450, lt - 2.9, { out: T_DDP - 0.2 - 2.9 });
-  caption(g, 'Tú pagas flete, seguro y aduana.', M, 1520, lt - 3.9, { out: T_DDP - 0.15 - 3.9 });
-  caption(g, 'DDP: todo pagado hasta tu puerta.', M, 1450, lt - 6.9);
-  caption(g, 'Más cómodo, pero con menos control.', M, 1520, lt - 7.6);
-  chip(g, 'OJO: ¿EL PEDIMENTO SALE A TU NOMBRE?', M, 1590, spring(lt - 8.4, 'pop'), { size: 34, fill: C.accent, color: C.paper });
+  caption(g, 'FOB: el proveedor entrega a bordo.', M, 1450, lt - 3.2, { out: T_DDP - 0.2 - 3.2 });
+  caption(g, 'Tú pagas flete, seguro y aduana.', M, 1520, lt - 4.0, { out: T_DDP - 0.15 - 4.0 });
+  caption(g, 'DDP: todo pagado hasta tu puerta.', M, 1450, lt - 6.6);
+  caption(g, 'Más cómodo, pero con menos control.', M, 1520, lt - 7.2);
+  chip(g, 'OJO: ¿EL PEDIMENTO SALE A TU NOMBRE?', M, 1590, spring(lt - T_OJO, 'pop'), { size: 36, fill: C.accent, color: C.paper });
 }

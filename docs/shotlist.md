@@ -48,13 +48,14 @@ Worked example (illustrative, USD), reused in the hook, proforma and cost stack:
 | t | Picture | Text | SFX |
 |---|---|---|---|
 | 12.00 | Full accent, bone type slots in | `INCOTERMS` · `¿Quién paga cada tramo?` | thump |
-| 13.00 | Accent panel retracts upward; route builds top→bottom (5 nodes) | `02 · INCOTERMS` · `Fábrica · A bordo en China · Flete internacional · Aduana México · Tu bodega` | pops |
-| 14.00 | Segmented toggle `EXW FOB CIF DDP`, indicator lands on FOB; ink line (proveedor) to node 2, accent line (tú) to node 5 | `PROVEEDOR` / `TÚ` | click |
-| 15.00 | Caption 1 | `FOB: el proveedor entrega a bordo.` | — |
-| 16.00 | Caption 2 | `Desde ahí pagas tú: flete, seguro y aduana.` | — |
+| 13.50 | Accent panel retracts upward; route builds top→bottom (5 nodes) | `02 · INCOTERMS` · `Fábrica · A bordo · Flete internacional · Aduana · Tu bodega` | ticks |
+| 14.50 | Segmented toggle `EXW FOB CIF DDP`, indicator lands on FOB; ink line (proveedor) to node 2, accent line (tú) to node 5 | `PROVEEDOR` / `TÚ` | click |
+| 15.20 | Caption 1 | `FOB: el proveedor entrega a bordo.` | — |
+| 16.00 | Caption 2 | `Tú pagas flete, seguro y aduana.` | — |
 | 18.00 | Indicator stretches to DDP (lead/trail springs); ink line grows to node 5 | | click, whoosh |
-| 19.00 | Caption 1 | `DDP: llega a tu puerta con impuestos pagados.` | — |
-| 20.00 | Caption 2 + accent note | `Más cómodo, menos control.` · `OJO: ¿EL PEDIMENTO SALE A TU NOMBRE?` | pop |
+| 18.60 | Caption 1 | `DDP: todo pagado hasta tu puerta.` | — |
+| 19.20 | Caption 2 | `Más cómodo, pero con menos control.` | — |
+| 19.90 | Accent note, held ~1.7 s | `OJO: ¿EL PEDIMENTO SALE A TU NOMBRE?` | pop |
 | 21.60 | Horizontal push left into S4 | | whoosh |
 
 ## S4 · Flete — 0:22–0:34 (bars 12–17)
