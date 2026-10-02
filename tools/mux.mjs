@@ -6,7 +6,8 @@ import { arg } from './film_page.mjs';
 const VIDEO = arg('video', 'out/silent.mp4');
 const AUDIO = arg('audio', 'out/score.wav');
 const OUT = arg('out', 'out/final.mp4');
-const TARGET = 'I=-14:TP=-1:LRA=11';
+// TP sits 0.5 dB under the -1 dBTP spec: AAC encoding adds intersample overshoot after loudnorm.
+const TARGET = 'I=-14:TP=-1.5:LRA=11';
 
 const run = (args) => {
   const r = spawnSync('ffmpeg', ['-hide_banner', '-y', ...args], { encoding: 'utf8' });
