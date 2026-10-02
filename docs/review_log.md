@@ -55,3 +55,20 @@ on the contact sheet at 42 s is the pedimento's fast drop exit, which is intende
 3. **Review tooling.** `fps=1` in `tools/sheets.sh` rounds to whole seconds, so the contact sheet
    was sampled at 1, 2, 3 … s instead of the 0.5 s offsets it claimed. Sheets now select frames by
    number, so timestamps are exact.
+
+## Round 4 — independent watch of `out/final.mp4` (video-review model, picture only)
+
+| hook | read | motion | variety | comp | accuracy | sound |
+|------|------|--------|---------|------|----------|-------|
+| 8    | 8    | 9      | 8       | 8    | 8        | 8     |
+
+No blank frames, flicker, strobing, clipped or colliding text. Sequence matched the shot list.
+
+1. **12.0–13.0 s, Incoterms title card.** Held ~1 s; "¿Quién paga cada tramo?" was still
+   sliding in when the panel lifted. Panel now lifts at 13.5 s; the diagram build and the FOB
+   indicator shift with it (FOB at 14.5 s, still on the beat grid).
+2. **20.4–21.6 s, "OJO: ¿EL PEDIMENTO SALE A TU NOMBRE?"** Small and up ~1.2 s, the most important
+   warning in the scene. DDP captions now come in 0.3–0.4 s earlier and the chip lands at 19.9 s at
+   36 px (the widest that stays inside x ≤ 1008), held ~1.7 s before the push.
+3. **47–51 s, cost stack.** Called dense. Kept as is: one layer per beat, then the full stack and
+   both footnotes hold for ~5 s (48.5–53.5 s), which reads fine at phone size (`out/phone.png`).
