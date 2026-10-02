@@ -1,0 +1,9 @@
+node_modules/
+__pycache__/
+out/*
+!out/final.mp4
+!out/contact.png
+!out/poster.png
+!out/phone.png
+!out/strip.png
+!out/final_16x9.mp4
