@@ -35,3 +35,23 @@ Also: pedimento rows were cramped (39–42 s); row pitch raised to 118 px.
 3. **Score.** Mix was squashed (-7.4 LUFS before normalization, LRA 1) and ticks/rolls were
    masked by the bass. Rebalanced bus gains, removed the heavy saturation stage, boosted the
    roll and tick SFX; master goes through two-pass loudnorm in `tools/mux.mjs`.
+
+## Round 3 — encoded film (`npm run sheets`: contact, strip, phone)
+
+| hook | read | motion | variety | comp | accuracy | sound |
+|------|------|--------|---------|------|----------|-------|
+| 8    | 8    | 8      | 8       | 7    | 8        | 8     |
+
+The 60 fps × 8 strip through the 3.6 s whip is smooth (no ghost copies). The single smeared frame
+on the contact sheet at 42 s is the pedimento's fast drop exit, which is intended.
+
+1. **36.7–39.5 s, aduana requirements.** Three small rows ended at y ≈ 1000, leaving the lower
+   third of the safe area empty while every other beat fills to ~1250–1500. Rows now use the same
+   190 px pitch and 68 px type as the tariff tree, each with a mono sub-label (`ALTA ANTE EL SAT`,
+   `INSCRIPCIÓN ANTE EL SAT`, `TE REPRESENTA EN LA ADUANA`), and start 0.1–0.2 s earlier so all
+   three are readable together for ~1 s before the pedimento arrives.
+2. **Master true peak -0.9 dBTP** (spec -1). AAC adds intersample overshoot after `loudnorm`;
+   the loudnorm target is now -1.5 dBTP, which lands at -1.3 dBTP / -14.0 LUFS after encoding.
+3. **Review tooling.** `fps=1` in `tools/sheets.sh` rounds to whole seconds, so the contact sheet
+   was sampled at 1, 2, 3 … s instead of the 0.5 s offsets it claimed. Sheets now select frames by
+   number, so timestamps are exact.
